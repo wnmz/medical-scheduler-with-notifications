@@ -4,10 +4,20 @@
   "description": "",
   "main": "./build/index.js",
   "scripts": {
+	"dev": "npm run start",
     "start": "npm run build && node ./build/index.js",
     "build": "npx rimraf ./build && npx tsc"
   },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "my-prisma-client": "file:../prisma-module",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.14",
+    "rimraf": "^6.0.1"
+  },
   "devDependencies": {
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^6.4.15",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }
