@@ -1,0 +1,77 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Patient {
+  id        String     @id @default(uuid())
+  phone     String     @unique
+  name      String
+  email     String?
+  gender    String
+  birthday  DateTime
+  Schedules Schedule[]
+}
+
+model Doctor {
+  id       String   @id @default(uuid())
+  name     String
+  email    String?
+  gender   String
+  birthday DateTime
+
+  DoctorSpecsPrice DoctorSpecsPrice[]
+}
+
+model Spec {
+  id   String @id @default(uuid())
+  name String
+
+  DoctorSpecsPrice DoctorSpecsPrice[]
+}
+
+model DoctorSpecsPrice {
+  id        String @id @default(uuid())
+  spec      Spec   @relation(fields: [spec_id], references: [id])
+  spec_id   String
+  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  doctor_id String
+  price     Float  @default(0)
+
+  // HH:mm format
+  work_start_time String? @default("09:00")
+  work_end_time   String? @default("21:00")
+
+  TimeSlots TimeSlot[]
+}
+
+model TimeSlot {
+  id          String   @id @default(uuid())
+  startTime   DateTime
+  endTime     DateTime
+  isAvailable Boolean  @default(true)
+
+  doctorSpecsPrice   DoctorSpecsPrice @relation(fields: [doctorSpecsPriceId], references: [id])
+  doctorSpecsPriceId String
+
+  Schedule Schedule[]
+}
+
+model Schedule {
+  id        String   @id @default(uuid())
+  startTime DateTime
+  length    Int       @default(30)
+  // [0 - первичный прием, 1 - Вторичный]
+  // оформление в Enum может некорректно работать на разных бд
+  type      Int       @default(0)
+
+  patient    Patient @relation(fields: [patient_id], references: [id])
+  patient_id String
+
+  timeSlot   TimeSlot @relation(fields: [timeSlotId], references: [id])
+  timeSlotId String
+}

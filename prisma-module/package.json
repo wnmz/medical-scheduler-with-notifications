@@ -1,0 +1,17 @@
+{
+  "name": "shared-prisma-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "npx prisma generate",
+    "postinstall": "npm run generate",
+    "migrate": "npx prisma migrate dev"
+  },
+  "author": "wnm",
+  "license": "ISC",
+  "devDependencies": {
+    "@prisma/client": "^5.18.0",
+    "prisma": "^5.18.0"
+  }
+}
