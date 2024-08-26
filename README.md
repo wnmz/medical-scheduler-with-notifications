@@ -20,7 +20,7 @@ EMAIL_SERVICE=gmail
 EMAIL_NAME=example@gmail.com
 EMAIL_PASSWORD=SUPER_SECRET_EMAIL_PASSWORD
 ```
-Для запуска достаточно написать `npm i && npm run dev` в каталогах `scheduler-api и `notification-service`
+Для запуска достаточно написать `npm i && npm run dev` в каталогах `scheduler-api` и `notification-service`
 ____
 # База данных
 Все файлы для работы с базой данных находятся по пути ./prisma-module/prisma (схема и миграции).
